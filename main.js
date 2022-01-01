@@ -4,4 +4,4 @@ const client = new Discord.Client();
 
 client.login(config.token);
 
-//test
+//test2 2 2
