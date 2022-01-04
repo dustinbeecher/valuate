@@ -15,16 +15,17 @@ let messagesSeen = 0;
 client.on('ready', () => {
     console.log('Bot is online');
     client.user.setActivity('online!'); 
-    let statuses = [
-        ['WATCHING', `${messagesSeen} messages`],
-        ['WATCHING', 'and evaluating'],
-        ['WATCHING', 'and evaluating.'],
-        ['WATCHING', 'and evaluating..'],
-        ['WATCHING', 'and evaluating...']
-    ];
     let x = 0;
     
     setInterval(() => {
+        console.log(messagesSeen);
+        let statuses = [
+            ['WATCHING', `${messagesSeen} messages`],
+            ['WATCHING', 'and evaluating'],
+            ['WATCHING', 'and evaluating.'],
+            ['WATCHING', 'and evaluating..'],
+            ['WATCHING', 'and evaluating...']
+        ];
         if (x === statuses.length) x = 0; {
             console.log(`${statuses[x][0]} ${statuses[x][1]}`);
             client.user.setActivity(statuses[x][1], {type: statuses[x][0]}); 
@@ -34,7 +35,10 @@ client.on('ready', () => {
 })
 
 client.on('messageCreate', (message) => {
-    messagesSeen+=1;
+    if (message.author != 908997485782007859) {
+        messagesSeen++;
+    }
+    console.log(messagesSeen);
     if (message.content === 'ping') {
         message.reply({
             content: 'pong',
