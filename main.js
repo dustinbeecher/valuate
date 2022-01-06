@@ -1,7 +1,8 @@
+//setup
 const Discord = require('discord.js');
 var config = require('./config.json');
 
-const {Client, Intents} = require('discord.js');
+const {Intents} = require('discord.js');
 
 const client = new Discord.Client({
     intents: [
@@ -10,8 +11,11 @@ const client = new Discord.Client({
     ]
 });
 
+const botID = 908997485782007859;
+
 let messagesSeen = 0;
 
+//main code
 client.on('ready', () => {
     console.log('Bot is online');
     client.user.setActivity('online!'); 
@@ -20,7 +24,7 @@ client.on('ready', () => {
     setInterval(() => {
         console.log(messagesSeen);
         let statuses = [
-            ['WATCHING', `${messagesSeen} messages`],
+            ['WATCHING', `over ${messagesSeen} messages`],
             ['WATCHING', 'and evaluating'],
             ['WATCHING', 'and evaluating.'],
             ['WATCHING', 'and evaluating..'],
@@ -35,7 +39,7 @@ client.on('ready', () => {
 })
 
 client.on('messageCreate', (message) => {
-    if (message.author != 908997485782007859) {
+    if (message.author != botID) {
         messagesSeen++;
     }
     console.log(messagesSeen);
