@@ -22,16 +22,18 @@ client.on('ready', () => {
     let x = 0;
     
     setInterval(() => {
-        console.log(messagesSeen);
+        //console.log(messagesSeen);
         let statuses = [
-            ['WATCHING', `over ${messagesSeen} messages`],
             ['WATCHING', 'and evaluating'],
             ['WATCHING', 'and evaluating.'],
             ['WATCHING', 'and evaluating..'],
-            ['WATCHING', 'and evaluating...']
+            ['WATCHING', 'and evaluating...'],
+            ['WATCHING', `${messagesSeen} messages`],
+            ['WATCHING', `${client.guilds.cache.size} servers`],
+            [null, 'FREE JULIAN ASSANGE']
         ];
         if (x === statuses.length) x = 0; {
-            console.log(`${statuses[x][0]} ${statuses[x][1]}`);
+            //console.log(`${statuses[x][0]} ${statuses[x][1]}`);
             client.user.setActivity(statuses[x][1], {type: statuses[x][0]}); 
             x++;
         }
@@ -42,7 +44,7 @@ client.on('messageCreate', (message) => {
     if (message.author != botID) {
         messagesSeen++;
     }
-    console.log(messagesSeen);
+    //console.log(messagesSeen);
     if (message.content === 'ping') {
         message.reply({
             content: 'pong',
