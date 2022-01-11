@@ -1,13 +1,19 @@
 {
-  "name": "discord",
+  "name": "valuate",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/dustinbeecher/valuate",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author":
+  {
+	"name" : "Dustin Beecher",
+	"email" : "contact@dustinbeecher.com",
+	"url" : "https://www.dustinbeecher.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^13.5.0"
   }

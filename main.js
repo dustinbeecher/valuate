@@ -1,21 +1,12 @@
-// setup
-const Discord = require('discord.js');
 const config = require('./config.json');
+const { Client, Intents } = require('discord.js');
 
-const { Intents } = require('discord.js');
-
-const client = new Discord.Client({
-	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MESSAGES,
-	],
-});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 const botID = 908997485782007859n;
 
 let messagesSeen = 0;
 
-// main code
 client.on('ready', () => {
 	console.log('Bot is online');
 	client.user.setActivity('online!');
@@ -39,11 +30,17 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', (message) => {
+	const command = message.content.toLowerCase();
 	if (message.author != botID) {messagesSeen++;}
 	// console.log(messagesSeen);
-	if (message.content === 'ping') {
+	if (command === 'ping') {
 		message.reply({
 			content: 'Pong!',
+		});
+	}
+	else if (command === 'beep') {
+		message.reply({
+			content: 'Boop!',
 		});
 	}
 });
