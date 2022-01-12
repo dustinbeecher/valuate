@@ -3,8 +3,6 @@ const { Client, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-const botID = 908997485782007859n;
-
 let messagesSeen = 0;
 
 client.on('ready', () => {
@@ -31,7 +29,7 @@ client.on('ready', () => {
 
 client.on('messageCreate', (message) => {
 	const command = message.content.toLowerCase();
-	if (message.author != botID) {messagesSeen++;}
+	if (message.author != config.clientID) {messagesSeen++;}
 	// console.log(messagesSeen);
 	if (command === 'ping') {
 		message.reply({
