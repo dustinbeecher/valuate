@@ -1,11 +1,12 @@
 {
   "name": "valuate",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "homepage": "https://github.com/dustinbeecher/valuate",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "author": {
     "name": "Dustin Beecher",
@@ -17,6 +18,7 @@
     "@discordjs/builders": "^0.11.0",
     "@discordjs/rest": "^0.2.0-canary.0",
     "discord-api-types": "^0.26.1",
-    "discord.js": "^13.5.0"
+    "discord.js": "^13.5.0",
+    "moment": "^2.29.1"
   }
 }
