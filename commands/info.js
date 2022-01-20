@@ -1,4 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
+const config = require('../config.json');
+const package = require('../package.json');
+const moment = require('moment');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -17,7 +21,23 @@ module.exports = {
 	async execute(interaction) {
 		if (interaction.options.getSubcommand() === 'user') {
 			const user = interaction.options.getUser('target') || interaction.user;
-				await interaction.reply(`user id: ${user.id}\nusername: ${user.username}\ntag: ${user.discriminator}`);
+			const userInfo = new MessageEmbed()
+
+				.setColor('#000')
+				.setTitle(`${user.tag}`)
+				.setAuthor({ name: "Valuate", iconURL: config.botAvatarURL, url: 'https://github.com/dustinbeecher/valuate'})
+				.setDescription('')
+				.setThumbnail(user.displayAvatarURL({dynamic: true, format: 'webp', size: 300}))
+				.addFields(
+					{ name: 'User ID', value: `${user.id}` },
+					{ name: 'Account Created', value: `${moment(user.createdAt).format('LLLL')} EST` },
+					{ name: 'Joined', value: `${moment(user.joinedAt).format('LLLL')} EST` }
+				)
+				.setTimestamp()
+				.setFooter({ text: `V${package.version}`, iconURL: config.botAvatarURL });
+
+			interaction.reply({ embeds: [userInfo] });	
+			//await interaction.reply(`user id: ${user.id}\nusername: ${user.username}\ntag: ${user.discriminator}\n${user.displayAvatarURL({dynamic: true, format: 'webp', size: 300})}`);
 		} else if (interaction.options.getSubcommand() === 'server') {
 			await interaction.reply(`${interaction.guild.name}\n${interaction.guild.memberCount} members\n`);
 		};

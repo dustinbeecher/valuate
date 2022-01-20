@@ -2,11 +2,9 @@ const config = require('./config.json');
 const stats = require('./stats.json');
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
+const package = require('./package.json')
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-
-let messagesSeen = 0;
-let commandsRegistered = 0;
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });	
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -24,6 +22,7 @@ client.on('ready', () => {
 	setInterval(() => {
 		// console.log(messagesSeen);
 		let statuses = [
+			['PLAYING', `V${package.version}`],
 			['WATCHING', 'and evaluating'],
 			['WATCHING', 'and evaluating.'],
 			['WATCHING', 'and evaluating..'],
