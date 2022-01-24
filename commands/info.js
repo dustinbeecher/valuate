@@ -22,6 +22,7 @@ module.exports = {
 		const guild = interaction.guild;
 		if (interaction.options.getSubcommand() === 'user') {
 			const user = interaction.options.getUser('target') || interaction.user;
+			const guildUser = await guild.members.fetch(user.id); //make this use discord.js.org/#/docs/discord.js/stable/class/CommandInteraction?scrollTo=member
 			const userInfo = new MessageEmbed()
 				.setColor(config.embedColor)
 				.setTitle(`${user.tag}`)
@@ -31,7 +32,7 @@ module.exports = {
 				.addFields(
 					{ name: 'User ID', value: `${user.id}` },
 					{ name: 'Account Created', value: `${moment(user.createdAt).format('LLLL')} EST` },
-					{ name: 'Joined', value: `${moment(guild.joinedAt).format('LLLL')} EST` }
+					{ name: 'Joined Server', value: `${moment(guildUser.joinedAt).format('LLLL')} EST` }
 				)
 				.setTimestamp()
 				.setFooter({ text: `V${package.version}`, iconURL: config.botAvatarURL });
