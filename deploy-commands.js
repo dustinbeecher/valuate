@@ -3,37 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const config = require('./config.json');
 
-/**const commands = [
-	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong'),
-	new SlashCommandBuilder().setName('server').setDescription('Replies with server info'),
-	new SlashCommandBuilder().setName('user').setDescription('Replies with user info'),
-]
-	.map(command => command.toJSON());**/
-
-const commands = [
-/*	new SlashCommandBuilder()
-		.setName('ping')
-		.setDescription('Replies with pong')
-		.addUserOption(option => option.setName('target').setDescription('The user')),
-	new SlashCommandBuilder()
-		.setName('info')
-		.setDescription('Get info about something')
-		.addSubcommand(subcommand =>
-			subcommand
-				.setName('user')
-				.setDescription('Info about a user')
-				.addUserOption(option => option.setName('target').setDescription('The user')))
-		.addSubcommand(subcommand =>
-			subcommand
-				.setName('bot')
-				.setDescription('Info about the bot')
-				.addUserOption(option => option.setName('target').setDescription('The user')))
-		.addSubcommand(subcommand =>
-			subcommand
-				.setName('server')
-				.setDescription('Info about the server'))
-				.addUserOption(option => option.setName('target').setDescription('The user')),*/
-];
+const commands = [];
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
