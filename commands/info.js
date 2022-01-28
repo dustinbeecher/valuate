@@ -1,8 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, ClientUser, Application } = require('discord.js');
+const moment = require('moment');
 const config = require('../config.json');
 const package = require('../package.json');
-const moment = require('moment');
+const stats = require('../stats.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -17,7 +18,10 @@ module.exports = {
 					.setDescription('user')))
 		.addSubcommand(subcommand => subcommand
 				.setName('server')
-				.setDescription('server info')),
+				.setDescription('server info'))
+		.addSubcommand(subcommand => subcommand
+			.setName('bot')
+			.setDescription('bot info')),
 	async execute(interaction) {
 		const guild = interaction.guild;
 		if (interaction.options.getSubcommand() === 'user') {
@@ -27,7 +31,7 @@ module.exports = {
 				.setColor(config.embedColor)
 				.setTitle(`${user.tag}`)
 				.setAuthor({ name: "Valuate", iconURL: config.botAvatarURL, url: 'https://github.com/dustinbeecher/valuate'})
-				.setDescription('')
+				.setDescription(`${user}`)
 				.setThumbnail(user.displayAvatarURL({ dynamic: true, format: 'webp', size: 300 }))
 				.addFields(
 					{ name: 'User ID', value: `${user.id}` },
@@ -38,7 +42,6 @@ module.exports = {
 				.setFooter({ text: `V${package.version}`, iconURL: config.botAvatarURL });
 
 			await interaction.reply({ embeds: [userInfo] });	
-			//await interaction.reply(`user id: ${user.id}\nusername: ${user.username}\ntag: ${user.discriminator}\n${user.displayAvatarURL({dynamic: true, format: 'webp', size: 300})}`);
 		} else if (interaction.options.getSubcommand() === 'server') {
 			const guildInfo = new MessageEmbed()
 				.setColor(config.embedColor)
@@ -73,8 +76,26 @@ module.exports = {
 				.setTimestamp()
 				.setFooter({ text: `V${package.version}`, iconURL: config.botAvatarURL });
 
-			await interaction.reply({ embeds: [guildInfo] });	
-			//await interaction.reply(`${interaction.guild.name}\n${interaction.guild.memberCount} members\n`);
+			await interaction.reply({ embeds: [guildInfo] });
+		} else if (interaction.options.getSubcommand() === 'bot') {
+			const botInfo = new MessageEmbed()
+				.setColor(config.embedColor)
+				.setTitle('Valuate')
+				.setAuthor({ name: "Valuate", iconURL: config.botAvatarURL, url: 'https://github.com/dustinbeecher/valuate'})
+				.setDescription('')
+				.setThumbnail(config.botAvatarURL)
+				.addFields(
+					{ name: 'User ID', value: `${config.clientID}` }, // this should not be done like this and i need to change it
+					{ name: 'Account Created', value: 'Saturday, November 13, 2021 3:31 AM EST' }, // i'm sure i'll fix this eventually
+					{ name: 'Joined Server', value: `${moment(guild.joinedAt).format('LLLL')} EST` },
+					{ name: 'Messages Read', value: `${stats.messagesSeen}`, inline: true },
+					{ name: 'Commands Registered', value: `${stats.commandsRegistered}`, inline: true },
+					{ name: 'Servers', value: `${stats.guilds}`, inline: true },
+				) 
+				.setTimestamp()
+				.setFooter({ text: `V${package.version}`, iconURL: config.botAvatarURL });
+				
+			await interaction.reply({ embeds: [botInfo] });
 		};
 	},
 };

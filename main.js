@@ -1,8 +1,8 @@
-const config = require('./config.json');
-const stats = require('./stats.json');
 const { Client, Collection, Intents } = require('discord.js');
 const fs = require('fs');
-const package = require('./package.json')
+const config = require('./config.json');
+const stats = require('./stats.json');
+const package = require('./package.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });	
 
@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
 	console.log('Bot is online');
 	client.user.setActivity('online!');
-	stats.guilds = client.guilds.cache.size;
+	stats.guilds = client.guilds.cache.size; //move this
 	let x = 0;
 	setInterval(() => {
 		// console.log(messagesSeen);
