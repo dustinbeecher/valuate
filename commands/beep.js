@@ -5,6 +5,6 @@ module.exports = {
 		.setName('beep')
 		.setDescription('boop!'),
 	async execute(interaction) {
-		await interaction.reply('boop!');
+		await interaction.reply(`boop! ${Math.round((Date.now() - interaction.createdTimestamp)/100)}ms`);
 	},
 };
